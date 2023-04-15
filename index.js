@@ -13,7 +13,7 @@ const Task = require("./models/task");
 const taskRoute = require("./routes/task");
 const companyRoute = require("./routes/company");
 const issuesRoute = require("./routes/issues");
-const sendMesssage = require("./utils/mail");
+const sendMesssage = require("./mailer/mail");
 
 const corsOptions = {
     origin: "*", //included origin as true
