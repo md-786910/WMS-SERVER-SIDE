@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const consola = require("consola");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const port = process.env.PORT || 5000;
@@ -59,10 +58,10 @@ const runDb = async () => {
 
         mongoose.set("strictQuery", false);
         await mongoose.connect(DB, { useUnifiedTopology: false });
-        consola.success("connected to MongoDB");
+        console.log("connected to MongoDB");
 
         app.listen(port, async () => {
-            consola.success("app is running on port " + port);
+            console.log("app is running on port " + port);
         });
     } catch (error) {
         console.log("connection error" + error.message);
