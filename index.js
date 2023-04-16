@@ -40,7 +40,7 @@ setInterval(async () => {
     const subject = "Your task is pending please complete!";
 
     const data = await Task.find({});
-    if (data) {
+    if (data.length>=1) {
         const text = `<div>
         Task link : ${"https://wms-nu.vercel.app"}
         <h3>
