@@ -40,7 +40,7 @@ setInterval(async () => {
     const subject = "Your task is pending please complete!";
 
     const data = await Task.find({});
-    if (data.length !== 0) {
+    if (data) {
         const text = `<div>
         Task link : ${"https://wms-nu.vercel.app"}
         <h3>
@@ -49,8 +49,8 @@ setInterval(async () => {
         </div>`;
         sendMesssage(subject, text);
     }
-}, 1000 * 60 * 60 * 24);
-
+}, 1000 * 60);
+// * 60 * 24
 const runDb = async () => {
     try {
         const DB =
