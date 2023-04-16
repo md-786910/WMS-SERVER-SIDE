@@ -26,7 +26,7 @@ module.exports = {
             res
                 .status(201)
                 .json({
-                    message: "company added successfully",
+                    message: "company updated successfully",
                     data: data,
                     success: true,
                 });
@@ -40,7 +40,7 @@ module.exports = {
             res
                 .status(200)
                 .json({
-                    message: "company fetch successfully",
+                    message: "",
                     data: data,
                     success: true,
                 });
@@ -79,7 +79,7 @@ module.exports = {
             res
                 .status(201)
                 .json({
-                    message: "company updated successfully",
+                    message: "",
                     data: data,
                     success: true,
                 });
@@ -99,7 +99,7 @@ module.exports = {
             res
                 .status(201)
                 .json({
-                    message: "task remove successfully",
+                    message: "task added successfully",
                     data: data,
                     success: true,
                 });
@@ -116,7 +116,7 @@ module.exports = {
             res
                 .status(201)
                 .json({
-                    message: "task remove successfully",
+                    message: "complete task successfully",
                     data: taskDelete,
                     success: true,
                 });
