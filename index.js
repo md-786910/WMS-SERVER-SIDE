@@ -49,7 +49,7 @@ setInterval(async () => {
         </div>`;
         sendMesssage(subject, text);
     }
-}, 1000 * 60 *60*24);
+}, 1000 * 60 * 60 * 24);
 // * 60 * 24
 const runDb = async () => {
     try {
