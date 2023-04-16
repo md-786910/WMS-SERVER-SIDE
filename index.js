@@ -36,20 +36,20 @@ app.get("/", (req, res) => {
     res.send("server working fine");
 });
 
-setInterval(async () => {
-    const subject = "Your task is pending please complete!";
+// setInterval(async () => {
+//     const subject = "Your task is pending please complete!";
 
-    const data = await Task.find({});
-    if (data.length>=1) {
-        const text = `<div>
-        Task link : ${"https://wms-nu.vercel.app"}
-        <h3>
-        ${data.length} Task is pending now please complete early. 
-        </h3>
-        </div>`;
-        sendMesssage(subject, text);
-    }
-}, 1000 * 60 * 60 * 24);
+//     const data = await Task.find({});
+//     if (data.length>=1) {
+//         const text = `<div>
+//         Task link : ${"https://wms-nu.vercel.app"}
+//         <h3>
+//         ${data.length} Task is pending now please complete early. 
+//         </h3>
+//         </div>`;
+//         sendMesssage(subject, text);
+//     }
+// }, 1000 * 60 * 60 * 24);
 // * 60 * 24
 const runDb = async () => {
     try {
