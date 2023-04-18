@@ -13,6 +13,7 @@ const taskRoute = require("./routes/task");
 const companyRoute = require("./routes/company");
 const issuesRoute = require("./routes/issues");
 const expenceRoute = require("./routes/expence");
+const videoRoute = require("./routes/videoRoute");
 const sendMesssage = require("./mailer/mail");
 
 const corsOptions = {
@@ -31,6 +32,7 @@ app.use(taskRoute);
 app.use(companyRoute);
 app.use(issuesRoute);
 app.use(expenceRoute);
+app.use(videoRoute);
 
 app.get("/", (req, res) => {
     res.send("server working fine");
