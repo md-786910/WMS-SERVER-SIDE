@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const apicache = require("apicache");
+
 const port = process.env.PORT || 5000;
 const app = express();
 
@@ -17,15 +19,18 @@ const videoRoute = require("./routes/videoRoute");
 const sendMesssage = require("./mailer/mail");
 
 const corsOptions = {
-    origin: "*", //included origin as true
-    credentials: true, //included credentials as true
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  origin: "*", //included origin as true
+  credentials: true, //included credentials as true
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 };
 
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
+let cache = apicache.middleware;
+
+app.use(cache("5 minutes"));
 
 // Routes
 app.use(taskRoute);
@@ -35,7 +40,7 @@ app.use(expenceRoute);
 app.use(videoRoute);
 
 app.get("/", (req, res) => {
-    res.send("server working fine");
+  res.send("server working fine");
 });
 
 // setInterval(async () => {
@@ -46,7 +51,7 @@ app.get("/", (req, res) => {
 //         const text = `<div>
 //         Task link : ${"https://wms-nu.vercel.app"}
 //         <h3>
-//         ${data.length} Task is pending now please complete early. 
+//         ${data.length} Task is pending now please complete early.
 //         </h3>
 //         </div>`;
 //         sendMesssage(subject, text);
@@ -54,21 +59,21 @@ app.get("/", (req, res) => {
 // }, 1000 * 60 * 60 * 24);
 // * 60 * 24
 const runDb = async () => {
-    try {
-        const DB =
-            process.env.NODE_ENV === "production"
-                ? process.env.DB_URI
-                : process.env.DB_URI_LOCAL;
+  try {
+    const DB =
+      process.env.NODE_ENV === "production"
+        ? process.env.DB_URI
+        : process.env.DB_URI_LOCAL;
 
-        mongoose.set("strictQuery", false);
-        await mongoose.connect(DB, { useUnifiedTopology: false });
-        console.log("connected to MongoDB");
+    mongoose.set("strictQuery", false);
+    await mongoose.connect(DB, { useUnifiedTopology: false });
+    console.log("connected to MongoDB");
 
-        app.listen(port, async () => {
-            console.log("app is running on port " + port);
-        });
-    } catch (error) {
-        console.log("connection error" + error.message);
-    }
+    app.listen(port, async () => {
+      console.log("app is running on port " + port);
+    });
+  } catch (error) {
+    console.log("connection error" + error.message);
+  }
 };
 runDb();
