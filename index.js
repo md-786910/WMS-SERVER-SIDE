@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const apicache = require("apicache");
 
 const port = process.env.PORT || 5000;
 const app = express();
@@ -28,9 +27,9 @@ const corsOptions = {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
-let cache = apicache.middleware;
+// let cache = apicache.middleware;
 
-app.use(cache("5 minutes"));
+// app.use(cache("5 minutes"));
 
 // Routes
 app.use(taskRoute);
