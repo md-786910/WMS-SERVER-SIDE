@@ -16,6 +16,7 @@ const issuesRoute = require("./routes/issues");
 const expenceRoute = require("./routes/expence");
 const videoRoute = require("./routes/videoRoute");
 const sendMesssage = require("./mailer/mail");
+const { default: axios } = require("axios");
 
 const corsOptions = {
   origin: "*", //included origin as true
@@ -41,6 +42,8 @@ app.use(videoRoute);
 app.get("/", (req, res) => {
   res.send("server working fine");
 });
+
+// for text to speech
 
 // setInterval(async () => {
 //     const subject = "Your task is pending please complete!";

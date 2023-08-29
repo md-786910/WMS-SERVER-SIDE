@@ -1,7 +1,7 @@
 const apicache = require("apicache");
-
+const onlyStatus200 = (req, res) => res.statusCode === 200;
 const cache = apicache.middleware;
-const cacheMid = cache("5 minutes");
+const cacheMid = cache("2 minutes", onlyStatus200);
 module.exports = {
   cacheMid,
 };
