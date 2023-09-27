@@ -7,7 +7,7 @@
 
 # testing
 /coverage
-
+server-patna.pem
 # production
 /build
 
