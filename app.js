@@ -1,13 +1,14 @@
 const express = require("express");
 const cors = require("cors");
-const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 
-const port = process.env.PORT || 8000;
+// const port = process.env.PORT || 8000;
 const app = express();
-
+const port = process.env.PORT || 5000;
 // config dotenv
 dotenv.config({});
+require("./conn/mongoConn");
+
 const Task = require("./models/task");
 // route file
 const taskRoute = require("./routes/task");
@@ -16,7 +17,6 @@ const issuesRoute = require("./routes/issues");
 const expenceRoute = require("./routes/expence");
 const videoRoute = require("./routes/videoRoute");
 const sendMesssage = require("./mailer/mail");
-const { default: axios } = require("axios");
 
 const corsOptions = {
   origin: "*", //included origin as true
@@ -39,10 +39,13 @@ app.use(issuesRoute);
 app.use(expenceRoute);
 app.use(videoRoute);
 
-app.get("/", (req, res) => {
+app.get("/api/test", (req, res) => {
   res.send("server working fine");
 });
 
+app.get("*", (req, res) => {
+  res.send("route does not exist");
+});
 // for text to speech
 
 // setInterval(async () => {
@@ -60,22 +63,9 @@ app.get("/", (req, res) => {
 //     }
 // }, 1000 * 60 * 60 * 24);
 // * 60 * 24
-const runDb = async () => {
-  try {
-    const DB =
-      process.env.NODE_ENV === "production"
-        ? process.env.DB_URI
-        : process.env.DB_URI_LOCAL;
 
-    mongoose.set("strictQuery", false);
-    await mongoose.connect(DB, { useUnifiedTopology: false });
-    console.log("connected to MongoDB");
+app.listen(port, async () => {
+  console.log("app is running on port " + port);
+});
 
-    app.listen(port, async () => {
-      console.log("app is running on port " + port);
-    });
-  } catch (error) {
-    console.log("connection error" + error.message);
-  }
-};
-runDb();
+module.exports = app;

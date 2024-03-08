@@ -1,0 +1,24 @@
+# Welcome to Serverless!
+
+service: RestApi1
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  memorySize: 2048
+  stage: dev  # Use 'stage' instead of 'stages'
+  region: us-east-1
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http: ANY /{proxy+}
+      - http: ANY /
+
+    environment:
+      DB_URI: "mongodb+srv://db:6O3rHBpJYYLnGjbV@database.l2fnk.mongodb.net/WMS?retryWrites=true&w=majority"  # Use colons
+      EMAIL_USERNAME: "mdashif.email123@gmail.com"  # Use colons
+      EMAIL_PASSWORD: "vsmmejctehgxuwam"  # Use colons
+      DB_URI_LOCAL: "mongodb://localhost:27017/WMS"  # Use colons

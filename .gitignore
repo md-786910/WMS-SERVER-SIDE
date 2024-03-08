@@ -1,3 +1,7 @@
+# package directories
+node_modules
+jspm_packages
+
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
@@ -22,3 +26,7 @@ server-patna.pem
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+# Serverless directories
+.serverless
