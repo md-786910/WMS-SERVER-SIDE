@@ -14,7 +14,6 @@ router.post("/addIssues", addIssues);
 router.get("/getIssues", cacheMid, getIssues);
 router.post("/getIssuesById", getIssuesById);
 
-router.patch("/updateIssues", updateIssuesStatus);
 
 // For issues
 router.patch("/update-issues/:id", updateIssues);

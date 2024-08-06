@@ -53,7 +53,7 @@ module.exports = {
       const data = await Issues.findByIdAndUpdate(
         id,
         {
-          ...req.body,
+          $set: { ...req.body },
         },
         {
           upsert: true,
