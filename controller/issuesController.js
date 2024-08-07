@@ -31,8 +31,10 @@ module.exports = {
   updateIssuesStatus: async (req, res) => {
     try {
       const data = await Issues.findByIdAndUpdate(req.body.id, {
-        ...req.body,
-        isResolved: true,
+        $set: {
+          ...req.body,
+          isResolved: true,
+        }
       });
       res.status(201).json({
         message: "issues updated successfully",
