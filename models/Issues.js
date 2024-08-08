@@ -13,6 +13,17 @@ const issuesSchema = new mongoose.Schema(
             type: Boolean,
             default: false,
         },
+        redirectTo: {
+            type: String,
+            required: false,
+        },
+        type: {
+            type: String,
+            virtual: true,
+            get: function () {
+                return "issue";
+            }
+        }
 
     },
     {

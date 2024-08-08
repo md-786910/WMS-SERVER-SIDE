@@ -7,6 +7,9 @@ module.exports = {
                 title: title
             })
             const data = await saveTask.save()
+            const redirectTo = "resolve/" + data?._id
+            await data.updateOne({ redirectTo });
+
             res.status(201).json({ message: "task added successfully", data: data, success: true })
         } catch (error) {
             res.status(404).json({ message: error.message, success: false })

@@ -17,12 +17,16 @@ const issuesRoute = require("./routes/issues");
 const expenceRoute = require("./routes/expence");
 const videoRoute = require("./routes/videoRoute");
 const sendMesssage = require("./mailer/mail");
+const runDb = require("./conn/mongoConn");
+const { searchGlobal } = require("./controller/general");
 
 const corsOptions = {
   origin: "*", //included origin as true
   credentials: true, //included credentials as true
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 };
+
+
 
 // middleware
 app.use(express.json());
@@ -31,6 +35,11 @@ app.use(cors(corsOptions));
 // let cache = apicache.middleware;
 
 // app.use(cache("5 minutes"));
+
+
+// search api global
+app.get('/search', searchGlobal)
+
 
 // Routes
 app.use(taskRoute);
@@ -65,6 +74,7 @@ app.get("*", (req, res) => {
 // * 60 * 24
 
 app.listen(port, async () => {
+  runDb()
   console.log("app is running on port " + port);
 });
 

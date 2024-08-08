@@ -7,6 +7,8 @@ module.exports = {
                 ...req.body,
             });
             const data = await saveCompany.save();
+            const redirectTo = "resolve/" + data?._id
+            await data.updateOne({ redirectTo });
             res
                 .status(201)
                 .json({

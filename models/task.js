@@ -5,6 +5,17 @@ const taskSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        redirectTo: {
+            type: String,
+            required: false,
+        },
+        type: {
+            type: String,
+            virtual: true,
+            get: function () {
+                return "task";
+            }
+        }
     },
     {
         timestamps: true,
