@@ -2,9 +2,9 @@ const issuesModel = require("../models/Issues")
 const companyModel = require("../models/company")
 const taskModel = require("../models/task")
 
-const results = [];
 module.exports.searchGlobal = async (req, res, next) => {
     try {
+        const results = [];
         let { query = "" } = req.query;
 
         // Search in issuesModel based on title and content
