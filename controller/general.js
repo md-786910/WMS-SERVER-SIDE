@@ -35,7 +35,6 @@ module.exports.searchGlobal = async (req, res, next) => {
 
         results.push(...tasks);
 
-        console.log({ results });
         query = ""
         res.status(200).send(results)
     } catch (error) {
