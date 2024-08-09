@@ -10,12 +10,11 @@ const {
   getCompanyById,
   updateCompany,
 } = require("../controller/compantController");
-const { cacheMid } = require("../utils/cache");
 
 // -------For Company
 
 router.post("/addCompany", addCompany);
-router.get("/getCompany", cacheMid, getCompany);
+router.get("/getCompany", getCompany);
 router.post("/removeCompany", deleteCompany);
 router.post("/getCompanyById", getCompanyById);
 router.post("/updateCompany", updateCompany);
@@ -24,6 +23,6 @@ router.post("/updateCompany", updateCompany);
 
 router.post("/addCompanyTask", addCompanyTask);
 router.post("/completeTask", completeTask);
-router.get("/getCompanyTask", cacheMid, getCompanyTask);
+router.get("/getCompanyTask", getCompanyTask);
 
 module.exports = router;

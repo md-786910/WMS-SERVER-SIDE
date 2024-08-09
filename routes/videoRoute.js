@@ -4,6 +4,6 @@ const { cacheMid } = require("../utils/cache");
 const router = express.Router();
 
 router.post("/postVideo", postVideo);
-router.get("/getVideo", cacheMid, getVideo);
+router.get("/getVideo", getVideo);
 
 module.exports = router;

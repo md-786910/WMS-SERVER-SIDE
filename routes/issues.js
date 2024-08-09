@@ -7,11 +7,10 @@ const {
   getIssuesById,
   updateIssuesStatus,
 } = require("../controller/issuesController");
-const { cacheMid } = require("../utils/cache");
 const router = express.Router();
 
 router.post("/addIssues", addIssues);
-router.get("/getIssues", cacheMid, getIssues);
+router.get("/getIssues", getIssues);
 router.post("/getIssuesById", getIssuesById);
 
 router.patch("/updateIssues", updateIssuesStatus);

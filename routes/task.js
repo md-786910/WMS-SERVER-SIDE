@@ -5,14 +5,11 @@ const {
   removeTask,
   getTask,
 } = require("../controller/taskController");
-const { cacheMid } = require("../utils/cache");
 
 router.post("/addTask", addTask);
-router.get("/getTask", cacheMid, getTask);
+router.get("/getTask", getTask);
 router.post("/removeTask", removeTask);
 
-router.get("/task", cacheMid, (req, res, next) => {
-  res.send("hi");
-});
+
 
 module.exports = router;

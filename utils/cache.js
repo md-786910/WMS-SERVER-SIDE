@@ -1,28 +1,61 @@
-// const apicache = require("apicache");
-// const onlyStatus200 = (req, res) => res.statusCode === 200;
-// const cache = apicache.middleware;
-// const cacheMid = cache("2 minutes", onlyStatus200);
-// module.exports = {
-//   cacheMid,
-// };
+const NodeCache = require('node-cache');
+const cache = new NodeCache({ stdTTL: 180 }); // 180 seconds = 3 minutes
 
-// app.use(cache("5 minutes"));
-const apicache = require("apicache");
 const generateCacheKey = (req) => {
   console.log("Generating cache key", req.url, req.originalUrl);
   return req.originalUrl || req.url;
 };
-const onlyStatus200 = (req, res) => res.statusCode === 200;
-const cache = apicache.middleware;
-const cacheDuration = "2 minutes";
-const cacheMid = cache(cacheDuration, generateCacheKey, onlyStatus200);
+
+// Cache middleware
+// const cacheMid = () => {
+//   return (req, res, next) => {
+//     const key = generateCacheKey(req);
+//     const cachedResponse = cache.get(key);
+//     if (cachedResponse) {
+//       res.send(cachedResponse);
+//     } else {
+//       res.on('finish', () => {
+//         console.log({ key, resp: res })
+//         cache.set(key, res.responseText);
+//       });
+//       next();
+//     }
+//   };
+// };
+
+const cacheMid = () => {
+  return (req, res, next) => {
+    const key = generateCacheKey(req);
+    const cachedResponse = cache.get(key);
+    if (cachedResponse) {
+      res.send(cachedResponse);
+    } else {
+      const originalSend = res.send;
+      res.send = (body) => {
+        cache.set(key, body);
+        originalSend.call(res, body);
+      };
+      next();
+    }
+  };
+};
+
+
+// Clear cache on POST, PATCH, and DELETE requests
+const clearCacheOnMethod = (req, res, next) => {
+  console.log(req.method)
+  if (req.method === "POST" || req.method === "PATCH" || req.method === "DELETE") {
+    cache.del(req.url || req.originalUrl);
+  }
+  next();
+};
 
 // Function to clear cache by key
-const clearCacheByKey = (key) => {
-  console.log("Clearing cache", key);
+const clearCacheByKey = () => {
+  console.log("Clearing cache");
   return (req, res, next) => {
-    if (key) {
-      apicache.clear(key);
+    if (req.url) {
+      cache.del(req.url || req.originalUrl);
     }
     next();
   };
@@ -30,5 +63,6 @@ const clearCacheByKey = (key) => {
 
 module.exports = {
   cacheMid,
+  clearCacheOnMethod,
   clearCacheByKey,
 };

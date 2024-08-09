@@ -20,6 +20,7 @@
     "googleapis": "^118.0.0",
     "moment": "^2.29.4",
     "mongoose": "^7.0.3",
+    "node-cache": "^5.1.2",
     "nodemailer": "^6.9.1",
     "serverless-http": "^3.2.0"
   }

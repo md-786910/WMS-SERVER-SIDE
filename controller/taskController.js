@@ -20,6 +20,7 @@ module.exports = {
             const data = await Task.find({}).sort({ _id: -1 })
             res.status(200).json({ message: "task fetch successfully", data: data, success: true })
         } catch (error) {
+            console.log(error)
             res.status(404).json({ message: error.message, success: false })
         }
     },

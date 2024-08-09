@@ -19,6 +19,7 @@ const videoRoute = require("./routes/videoRoute");
 const sendMesssage = require("./mailer/mail");
 const runDb = require("./conn/mongoConn");
 const { searchGlobal } = require("./controller/general");
+const { cacheMid, clearCacheOnMethod } = require("./utils/cache");
 
 const corsOptions = {
   origin: "*", //included origin as true
@@ -39,6 +40,12 @@ app.use(cors(corsOptions));
 
 // search api global
 app.get('/search', searchGlobal)
+
+
+// Use cache middleware for all GET requests
+app.get('*', cacheMid());
+
+app.use(clearCacheOnMethod)
 
 
 // Routes
