@@ -11,7 +11,7 @@ const issuesSchema = new mongoose.Schema(
         },
         isResolved: {
             type: Boolean,
-            default: false,
+            default: true,
         },
         redirectTo: {
             type: String,
