@@ -9,7 +9,6 @@ const port = process.env.PORT || 5000;
 dotenv.config({});
 require("./conn/mongoConn");
 
-const Task = require("./models/task");
 // route file
 const taskRoute = require("./routes/task");
 const companyRoute = require("./routes/company");
@@ -19,7 +18,7 @@ const videoRoute = require("./routes/videoRoute");
 const sendMesssage = require("./mailer/mail");
 const runDb = require("./conn/mongoConn");
 const { searchGlobal } = require("./controller/general");
-const { cacheMid, clearCacheOnMethod } = require("./utils/cache");
+const notebookRouter = require("./routes/notebook");
 
 const corsOptions = {
   origin: "*", //included origin as true
@@ -33,19 +32,12 @@ const corsOptions = {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
-// let cache = apicache.middleware;
 
-// app.use(cache("5 minutes"));
 
 
 // search api global
 app.get('/search', searchGlobal)
 
-
-// Use cache middleware for all GET requests
-app.get('*', cacheMid());
-
-app.use(clearCacheOnMethod)
 
 
 // Routes
@@ -54,6 +46,7 @@ app.use(companyRoute);
 app.use(issuesRoute);
 app.use(expenceRoute);
 app.use(videoRoute);
+app.use(notebookRouter);
 
 app.get("/api/test", (req, res) => {
   res.send("server working fine");

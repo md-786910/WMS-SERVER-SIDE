@@ -17,6 +17,10 @@ const issuesSchema = new mongoose.Schema(
             type: String,
             required: false,
         },
+        isDeleted: {
+            type: Boolean,
+            default: false,
+        },
         type: {
             type: String,
             virtual: true,
