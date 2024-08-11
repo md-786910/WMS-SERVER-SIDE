@@ -1,6 +1,9 @@
 const issuesModel = require("../models/Issues")
 const companyModel = require("../models/company")
 const taskModel = require("../models/task")
+const notebookFileModel = require("../models/notebookFile")
+const notebookModel = require("../models/notebook")
+
 
 module.exports.searchGlobal = async (req, res, next) => {
     try {
@@ -32,8 +35,26 @@ module.exports.searchGlobal = async (req, res, next) => {
             title: { $regex: query, $options: 'i' },
         }).select("title redirectTo type").limit(10);
 
-
         results.push(...tasks);
+
+
+        // notebook & notebook files
+        const notebooksFile = await notebookFileModel.find({
+            $or: [
+                { fileName: { $regex: query, $options: 'i' } },
+            ],
+        }).select("fileName redirectTo").limit(10);
+
+        results.push(...notebooksFile);
+
+
+        const notebooks = await notebookModel.find({
+            $or: [
+                { content: { $regex: query, $options: 'i' } },
+            ],
+        }).select("content redirectTo").limit(10);
+
+        results.push(...notebooks);
 
         query = ""
         res.status(200).send(results)

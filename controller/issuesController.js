@@ -32,14 +32,14 @@ module.exports = {
   },
   updateIssuesStatus: async (req, res) => {
     try {
-      const data = await Issues.findByIdAndUpdate(req.body.id, {
+      const { id } = req.params;
+      const data = await Issues.findByIdAndUpdate({ _id: id }, {
         $set: {
-          ...req.body,
-          isResolved: true,
+          isDeleted: false,
         }
       });
       res.status(201).json({
-        message: "issues updated successfully",
+        message: "issues status updated successfully",
         data: data,
         success: true,
       });
@@ -75,10 +75,25 @@ module.exports = {
   },
   removeIssues: async (req, res) => {
     try {
-      const { id } = req.body;
-      const data = await Issues.findByIdAndDelete(id);
+      const { id } = req.params;
+      const data = await Issues.findByIdAndUpdate({ _id: id }, {
+        $set: { isDeleted: true },
+      }, { new: true, });
       res.status(200).json({
         message: "task remove successfully",
+        data: data,
+        success: true,
+      });
+    } catch (error) {
+      res.status(404).json({ message: error.message, success: false });
+    }
+  },
+  permanentDelete: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const data = await Issues.findByIdAndDelete({ _id: id });
+      res.status(200).json({
+        message: "task delete successfully",
         data: data,
         success: true,
       });

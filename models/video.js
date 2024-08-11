@@ -11,6 +11,10 @@ const videoSchema = new mongoose.Schema(
         image: {
             type: String,
         },
+        publishedAt: {
+            type: Date,
+            default: Date.now()
+        }
     },
     {
         timestamps: true,
