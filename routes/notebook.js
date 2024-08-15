@@ -1,9 +1,10 @@
 const express = require("express");
-const { createFile, getAllFiles, createNotebook, getContentNotebook, deleteFiles } = require("../controller/notebookController");
+const { createFile, getAllFiles, createNotebook, getContentNotebook, deleteFiles, updateOrderNotebookFiles } = require("../controller/notebookController");
 const notebookRouter = express.Router();
 
 notebookRouter.post("/create-file", createFile);
 notebookRouter.get("/get-all-file", getAllFiles);
+notebookRouter.patch("/order-notebook-files", updateOrderNotebookFiles);
 notebookRouter.delete("/delete-file/:fileId", deleteFiles);
 
 // create notebook

@@ -4,9 +4,9 @@ const notebookFileModel = require("../models/notebookFile")
 module.exports = {
     createFile: async (req, res) => {
         try {
+            const fileSize = await notebookFileModel.countDocuments()
             const { fileName } = req.body
-            const files = await notebookFileModel.create({ fileName })
-            const fileId = files?._id;
+            const files = await notebookFileModel.create({ fileName, order: fileSize + 1 })
 
             const notefileId = files?._id;
             const file = files?.fileName;
@@ -21,8 +21,28 @@ module.exports = {
     },
     getAllFiles: async (req, res) => {
         try {
-            const files = await notebookFileModel.find({}).sort({ createdAt: -1 })
+            const files = await notebookFileModel.find({}).sort({ order: 1 })
             res.status(200).json({ files, success: true })
+        } catch (error) {
+            res.status(404).json({ message: error })
+        }
+    },
+
+    updateOrderNotebookFiles: async (req, res) => {
+        try {
+            const filesData = req.body;
+            let order = 1;
+
+            for (const file of filesData) {
+                const data = await notebookFileModel.findByIdAndUpdate({ _id: file?._id }, {
+                    $set: {
+                        order: order,
+                    }
+                });
+                order = order + 1;
+            }
+
+            res.status(200).json({ message: "successfully update order", success: true })
         } catch (error) {
             res.status(404).json({ message: error })
         }

@@ -13,6 +13,9 @@ const notebookFileSchema = new mongoose.Schema(
             type: Boolean,
             default: false,
         },
+        order: {
+            type: Number,
+        }
     },
     {
         timestamps: true,
