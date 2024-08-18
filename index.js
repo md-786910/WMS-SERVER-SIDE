@@ -19,6 +19,7 @@ const sendMesssage = require("./mailer/mail");
 const runDb = require("./conn/mongoConn");
 const { searchGlobal } = require("./controller/general");
 const notebookRouter = require("./routes/notebook");
+const fileRouter = require("./routes/files");
 
 const corsOptions = {
   origin: "*", //included origin as true
@@ -47,6 +48,7 @@ app.use(issuesRoute);
 app.use(expenceRoute);
 app.use(videoRoute);
 app.use(notebookRouter);
+app.use(fileRouter);
 
 app.get("/api/test", (req, res) => {
   res.send("server working fine");
