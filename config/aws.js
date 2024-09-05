@@ -62,23 +62,5 @@ module.exports = {
 }
 
 
-// Define a route to handle file uploads
-// app.post('/upload', upload.single('file'), async (req, res) => {
-//   const fileStream = Readable.from(req.file.buffer);
 
-//   const params = {
-//     Bucket: 'YOUR_S3_BUCKET_NAME',
-//     Key: req.file.originalname,
-//     Body: fileStream,
-//   };
-
-//   try {
-//     await s3Client.send(new PutObjectCommand(params));
-//     console.log('File uploaded successfully');
-//     res.status(200).send('File uploaded');
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send('Failed to upload file');
-//   }
-// });
 

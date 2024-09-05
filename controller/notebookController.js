@@ -47,6 +47,22 @@ module.exports = {
             res.status(404).json({ message: error })
         }
     },
+    updateNoteBookTitle: async (req, res) => {
+        try {
+            const { fileName } = req.body;
+            const { fileId } = req.params;
+
+            const data = await notebookFileModel.findByIdAndUpdate({ _id: fileId }, {
+                $set: {
+                    fileName
+                }
+            });
+
+            res.status(200).json({ message: "successfully update notebook file", success: true })
+        } catch (error) {
+            res.status(404).json({ message: error })
+        }
+    },
     deleteFiles: async (req, res) => {
         try {
             const { fileId } = req.params;
