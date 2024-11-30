@@ -11,6 +11,8 @@ serverless.yml
 /.pnp
 .pnp.js
 
+secret.json
+
 # testing
 /coverage
 server-patna.pem
