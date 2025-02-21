@@ -1,20 +1,10 @@
 const mongoose = require("mongoose");
-
-
-const runDb = async (DB = null) => {
+const runDb = async () => {
   try {
-    DB = process.env.DB_URI
-    // process.env.NODE_ENV === "production"
-    // ? process.env.DB_URI
-    // : process.env.DB_URI_LOCAL;
-
+    const DB = process.env.DB_URI;
     mongoose.set("strictQuery", false);
-    await mongoose.connect(DB, {
-      useUnifiedTopology: false
-    });
+    const conn = await mongoose.connect(DB);
     console.log("connected to MongoDB");
-
-
   } catch (error) {
     console.log("connection error" + error.message);
   }

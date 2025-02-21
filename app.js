@@ -1,13 +1,14 @@
+const dotenv = require("dotenv");
+dotenv.config({});
 const express = require("express");
 const cors = require("cors");
-const dotenv = require("dotenv");
 
-// const port = process.env.PORT || 8000;
 const app = express();
 const port = process.env.PORT || 5000;
-// config dotenv
-dotenv.config({});
-require("./conn/mongoConn");
+const runDb = require("./conn/mongoConn");
+(async () => {
+  await runDb();
+})();
 
 // route file
 const taskRoute = require("./routes/task");
@@ -16,7 +17,6 @@ const issuesRoute = require("./routes/issues");
 const expenceRoute = require("./routes/expence");
 const videoRoute = require("./routes/videoRoute");
 const sendMesssage = require("./mailer/mail");
-const runDb = require("./conn/mongoConn");
 const { searchGlobal } = require("./controller/general");
 const notebookRouter = require("./routes/notebook");
 const fileRouter = require("./routes/files");
@@ -25,21 +25,16 @@ const corsOptions = {
   origin: "*", //included origin as true
   credentials: true, //included credentials as true
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
 };
-
-
 
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 
-
-
 // search api global
-app.get('/search', searchGlobal)
-
-
+app.get("/search", searchGlobal);
 
 // Routes
 app.use(taskRoute);
@@ -75,9 +70,8 @@ app.get("*", (req, res) => {
 // }, 1000 * 60 * 60 * 24);
 // * 60 * 24
 
-app.listen(port, async () => {
-  runDb()
-  console.log("app is running on port " + port);
-});
+// app.listen(port, async () => {
+//   console.log("app is running on port " + port);
+// });
 
 module.exports = app;
