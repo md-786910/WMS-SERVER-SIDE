@@ -70,8 +70,10 @@ app.get("*", (req, res) => {
 // }, 1000 * 60 * 60 * 24);
 // * 60 * 24
 
-// app.listen(port, async () => {
-//   console.log("app is running on port " + port);
-// });
+const isDev = process.env.NODE_ENV == "development";
+isDev &&
+  app.listen(port, async () => {
+    console.log("app is running on port " + port);
+  });
 
 module.exports = app;
