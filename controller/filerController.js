@@ -83,7 +83,7 @@ module.exports = {
             }
             const files = await fileModel.find({
                 folderId: folderId,
-                isFolderContain: true,
+                isFolderExist: true,
             })
 
             for (const file of files) {
